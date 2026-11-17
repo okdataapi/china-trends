@@ -23,7 +23,7 @@ The digests are also published, with an RSS-style feed, at [okdata.online/report
 | `read_at_utc` | When the board was read |
 | `name_en` | The entry in English, machine-translated with names, places and slang rendered for an English reader. Check the Chinese original before quoting it |
 
-Boards: `douyin`, `weibo`, `xiaohongshu`, `bilibili`, `kuaishou`. They are read every four hours (Xiaohongshu once a day); the last reading of each day is the one kept here, and a new file for each board is added every morning (Beijing time). You may reuse the CSVs; please credit okdata.online.
+Boards: `douyin`, `weibo`, `xiaohongshu`, `bilibili`, `kuaishou`. They are read every four hours (Xiaohongshu once a day); the last reading of each day is the one kept here, and a new file for each board is added every morning (Beijing time). You may reuse the CSVs under [CC BY 4.0](LICENSE); please credit okdata.online.
 
 ## Live boards and an API
 
