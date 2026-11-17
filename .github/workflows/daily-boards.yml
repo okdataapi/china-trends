@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          header='rank,name,heat,url,read_at_utc'
+          header='rank,name,heat,url,read_at_utc'   # the file's header must start with these; later columns (name_en) are kept
           added=0
           for back in 1 2 3; do
             day=$(TZ=Asia/Shanghai date -d "-${back} day" +%F)
@@ -39,7 +39,8 @@ jobs:
                 echo "skip ${board} ${day}: HTTP ${code}"
                 rm -f "$tmp"; continue
               fi
-              if [ "$(head -n1 "$tmp" | tr -d '\r')" != "$header" ] || [ "$(wc -l < "$tmp")" -lt 2 ]; then
+              first=$(head -n1 "$tmp" | tr -d '\r')
+              if [ "${first#"$header"}" = "$first" ] || [ "$(wc -l < "$tmp")" -lt 2 ]; then
                 echo "skip ${board} ${day}: unexpected content"
                 rm -f "$tmp"; continue
               fi

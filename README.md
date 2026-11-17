@@ -21,6 +21,7 @@ The digests are also published, with an RSS-style feed, at [okdata.online/report
 | `heat` | The app's own heat number; empty when the app shows none (a pinned entry, for example). Not comparable across apps |
 | `url` | A search link for the entry on the app's website |
 | `read_at_utc` | When the board was read |
+| `name_en` | The entry in English, machine-translated with names, places and slang rendered for an English reader. Check the Chinese original before quoting it |
 
 Boards: `douyin`, `weibo`, `xiaohongshu`, `bilibili`, `kuaishou`. They are read every four hours (Xiaohongshu once a day); the last reading of each day is the one kept here, and a new file for each board is added every morning (Beijing time). You may reuse the CSVs; please credit okdata.online.
 
