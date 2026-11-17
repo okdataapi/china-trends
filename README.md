@@ -27,7 +27,7 @@ Boards: `douyin`, `weibo`, `xiaohongshu`, `bilibili`, `kuaishou`. They are read 
 
 ## Live boards and an API
 
-The same boards are free to read in English, refreshed every four hours, at [okdata.online/tools/hot-search](https://okdata.online/tools/hot-search/?src=gh-china-trends), along with X trends by country and Reddit. To pull them into a spreadsheet, a script or an AI agent, each board is one call to the [okdata API](https://okdata.online/apis/?src=gh-china-trends):
+The same boards are free to read in English, refreshed every four hours, at [okdata.online/tools/hot-search](https://okdata.online/tools/hot-search/?src=gh-china-trends), along with X trends by country and Reddit. The latest reading of every board (37 of them, each entry in Chinese and English) is also one free JSON file, no key needed: [okdata.online/data/trends/latest.json](https://okdata.online/data/trends/latest.json). To pull them into a spreadsheet, a script or an AI agent, each board is one call to the [okdata API](https://okdata.online/apis/?src=gh-china-trends):
 
 ```bash
 curl "https://api.okdata.online/v1/weibo/trends/list" \
