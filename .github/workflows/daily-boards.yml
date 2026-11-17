@@ -1,0 +1,63 @@
+name: Daily boards
+
+# Every morning after the boards are finalised (06:10 Beijing), add yesterday's CSV for each board.
+# Also fills any of the last few days that are still missing, so a skipped run does not leave a gap.
+on:
+  schedule:
+    - cron: '30 23 * * *'   # 07:30 Beijing
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-boards
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch missing daily CSVs
+        shell: bash
+        run: |
+          set -euo pipefail
+          header='rank,name,heat,url,read_at_utc'
+          added=0
+          for back in 1 2 3; do
+            day=$(TZ=Asia/Shanghai date -d "-${back} day" +%F)
+            for board in douyin weibo xiaohongshu bilibili kuaishou; do
+              out="data/${board}/${day}.csv"
+              [ -f "$out" ] && continue
+              tmp=$(mktemp)
+              code=$(curl -sS -o "$tmp" -w '%{http_code}' --retry 3 --retry-delay 10 \
+                "https://okdata.online/data/trends/${board}/${day}.csv" || echo 000)
+              if [ "$code" != 200 ]; then
+                echo "skip ${board} ${day}: HTTP ${code}"
+                rm -f "$tmp"; continue
+              fi
+              if [ "$(head -n1 "$tmp" | tr -d '\r')" != "$header" ] || [ "$(wc -l < "$tmp")" -lt 2 ]; then
+                echo "skip ${board} ${day}: unexpected content"
+                rm -f "$tmp"; continue
+              fi
+              mkdir -p "data/${board}"
+              mv "$tmp" "$out"
+              echo "added ${out}"
+              added=$((added + 1))
+            done
+          done
+          echo "added=${added}" >> "$GITHUB_ENV"
+
+      - name: Commit
+        if: env.added != '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data
+          git commit -m "data: hot-search boards $(TZ=Asia/Shanghai date -d '-1 day' +%F)"
+          git push

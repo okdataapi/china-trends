@@ -22,7 +22,7 @@ The digests are also published, with an RSS-style feed, at [okdata.online/report
 | `url` | A search link for the entry on the app's website |
 | `read_at_utc` | When the board was read |
 
-Boards: `douyin`, `weibo`, `xiaohongshu`, `bilibili`, `kuaishou`. They are read every four hours (Xiaohongshu once a day); the last reading of each day is the one kept here. You may reuse the CSVs; please credit okdata.online.
+Boards: `douyin`, `weibo`, `xiaohongshu`, `bilibili`, `kuaishou`. They are read every four hours (Xiaohongshu once a day); the last reading of each day is the one kept here, and a new file for each board is added every morning (Beijing time). You may reuse the CSVs; please credit okdata.online.
 
 ## Live boards and an API
 
