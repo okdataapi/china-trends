@@ -18,6 +18,8 @@ jobs:
   fetch:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}   # write token for the okdataapi org on Hugging Face; the mirror step is skipped without it
     steps:
       - uses: actions/checkout@v4
 
@@ -62,3 +64,23 @@ jobs:
           git add data
           git commit -m "data: hot-search boards $(TZ=Asia/Shanghai date -d '-1 day' +%F)"
           git push
+
+      # Keep huggingface.co/datasets/okdataapi/china-hot-search-daily in step with data/.
+      # Unchanged files are not re-uploaded, so running it every day is cheap and also repairs a missed day.
+      - name: Mirror data/ to Hugging Face
+        if: env.HF_TOKEN != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          pip install --quiet 'huggingface_hub>=0.30'
+          python - <<'PY'
+          from huggingface_hub import HfApi
+          HfApi().upload_folder(
+              repo_id='okdataapi/china-hot-search-daily',
+              repo_type='dataset',
+              folder_path='data',
+              path_in_repo='data',
+              allow_patterns='*/*.csv',
+              commit_message='data: sync from github.com/okdataapi/china-trends',
+          )
+          PY
