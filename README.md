@@ -6,9 +6,9 @@ The hot-search boards of China's biggest social apps, kept day by day as CSV, wi
 
 | Week | Read it |
 |---|---|
-| Nov 12–16, 2026 | [BLG win League of Legends Worlds, tanghulu remixes, the "face-covered" look, autumn-break trips](reports/2026-11-16-week.md) · [on okdata.online](https://okdata.online/reports/2026-11-16/) |
+| Nov 12–16, 2026 | [BLG win League of Legends Worlds, tanghulu remixes, the "face-covered" look, autumn-break trips](reports/2026-11-16-week.md) · [on okdata.online](https://okdata.online/reports/2026-11-16/?src=gh-china-trends) |
 
-The digests are also published, with an RSS-style feed, at [okdata.online/reports](https://okdata.online/reports/) ([中文](https://okdata.online/zh/reports/)). Each digest picks the stories that stayed on the boards longest, translates them and says where they ranked. Politics, deaths and unverified news about named people are left out of the digests; the raw CSVs keep every entry.
+The digests are also published, with an RSS-style feed, at [okdata.online/reports](https://okdata.online/reports/?src=gh-china-trends) ([中文](https://okdata.online/zh/reports/?src=gh-china-trends)). Each digest picks the stories that stayed on the boards longest, translates them and says where they ranked. Politics, deaths and unverified news about named people are left out of the digests; the raw CSVs keep every entry.
 
 ## Data
 
